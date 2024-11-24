@@ -1,0 +1,108 @@
+Overview:
+          This Java Selenium WebDriver script automated a user interaction with the FitPeo website. 
+            It performs actions such as navigating to the site, interacting with a slider, 
+           filling in input fields, checking for specific output, and printing results based on conditions. 
+                The script is  designed for automating a form submission with specific input values and verifying  a displayed value.
+
+1.WebDriver Initialization: The script uses Firefox WebDriver, which is specified by the path to geckodriver.exe.
+
+      System.setProperty("webdriver.gecko.driver", "C:\\\\Users\\\\latha.py\\\\drivers\\\\geckodriver.exe");
+      WebDriver driver = new FirefoxDriver();
+
+2.Window Maximize: it will maximize the  the browser window is maximized for to view complete whole page.
+
+      driver.manage().window().maximize();
+
+3.Clicking on 'Revenue Calculator' Button: This script clicks on the 'Revenue Calculator' button, which i was identified by the XPath.
+
+     driver.findElement(By.xpath("//div[text()='Revenue Calculator']")).click();
+
+4.Waiting for Slider to be Visible: WebDriverWait is a waiting mechanism which i used to loacate an
+ elemnet because of an error which i had received (NoSuchElementException)&(Timeoutexception)
+ to handle this exception i used waiting mechanism to find the elemnt.
+
+5.iSlider-root.MuiSlider-colorPrimary.MuiSlider-sizeMedium.css-16i48op")));Interacting with the Slider: 
+i wrote a script to locates the slider that  uses the Actions class to click 
+and move the slider horizontally(820). The moveByOffset method simulates dragging the slider to a new position.
+
+  WebElement latha = driver.findElement(By.xpath("//span[@class='MuiSlider-track css-10opxo5']"));
+   Actions act = new Actions(driver);
+    act.clickAndHold(latha);
+    act.moveByOffset(108, 0).build().perform();
+
+6.Filling Form Input: The script locates an input field (using XPath), clears any existing value, and enters the value "560".
+
+WebElement sirivelu = driver.findElement(By.xpath("//input[@class='MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputSizeSmall css-1o6z5ng']"));
+sirivelu.clear();
+sirivelu.sendKeys("560");
+
+
+7.Scrolling the Page: It uses JavaScript (JavascriptExecutor) to scroll the page vertically, ensuring elements further down are visible.
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("window.scrollBy(0, 800);");
+
+
+8.Clicking on Switch Inputs: The script clicks on multiple switches (identified by their XPath) to simulate toggling options on the page.
+driver.findElement(By.xpath("(//input[@class='PrivateSwitchBase-input css-1m9pwf3'])[1]")).click();
+driver.findElement(By.xpath("(//input[@class='PrivateSwitchBase-input css-1m9pwf3'])[2]")).click();
+driver.findElement(By.xpath("(//input[@class='PrivateSwitchBase-input css-1m9pwf3'])[3]")).click();
+driver.findElement(By.xpath("(//input[@class='PrivateSwitchBase-input css-1m9pwf3'])[8]")).click();
+
+
+9.Extracting Text from a Web Element: The script looks for the text in a <p> element and splits the string to extract the numeric value.
+
+WebElement text = driver.findElement(By.xpath("(//p[@class='MuiTypography-root MuiTypography-body1 inter css-1bl0tdj'])[4]"));
+String text2 = text.getText();
+String value = text2.split(":")[1].trim();
+value = value.replace("$", "").replace(",", "");
+
+10.Converting Value to Integer: After removing the $ and commas, the script converts the string into an integer. 
+It compares the value with an expected value (110700) and prints the output result.
+int numberValue = Integer.parseInt(value);
+int expectedValue = 110700;
+if (numberValue == expectedValue) {
+    System.out.println(numberValue);
+} else {
+    System.out.println(numberValue);
+}
+
+
+11.5. Exception Handling:
+The script includes a try-catch block to handle possible exceptions such as:
+NoSuchElementException if the element is not found.
+General Exception to catch other unforeseen issues.
+
+try {
+    
+} catch (Exception e) {
+    e.printStackTrace();
+} finally {
+    System.out.println("output is gone");
+}
+
+12.6. Final Output:
+The final part of the script prints the value that was extracted from the webpage.
+WebElement value = driver.findElement(By.xpath("(//p[@class='MuiTypography-root MuiTypography-body1 inter css-1bl0tdj'])[4]"));
+String valueText = value.getText();
+System.out.println(valueText);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
